@@ -1,12 +1,16 @@
 import { Routes, Route } from "react-router-dom"
 import SharedLayout from "pages/SharedLayout/SharedLayout"
-import HomePage from "pages/Home/HomePage"
+import Home from "pages/Home/Home"
+import Movies from "pages/Movies/Movies"
 
 export default function UserRoute () {
     return (
         <Routes>
-            <Route path="/goit-react-hw-05-movies" element={<SharedLayout/>}>
-                <Route index element={<HomePage/>}/>
+            <Route path="/" element={<SharedLayout/>}>
+                <Route index element={<Home/>}/>
+                <Route path="/movies" element={<Movies/>}>
+                    
+                </Route>
             </Route>
         </Routes>
     )

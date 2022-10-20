@@ -23,8 +23,8 @@ export default function Movies() {
       try {
         setLoader(true)
         setError(null)
-        const {data:data} = await getMovieByKeyword(searchQuery)
-        const { results, total_results} = data
+        const data = await getMovieByKeyword(searchQuery)
+        const { data: {results, total_results}} = data
         setMoviesList(results)
         if (total_results === 0) {
           setError('We did not find any images for your request')
@@ -55,7 +55,7 @@ export default function Movies() {
 
   return (
     <>
-      <input name="search" type="text" value={query} onChange={handleChange}/>
+      <input name="search" type="text" value={query} onChange={handleChange} autoComplete="off"/>
       <button type="button" onClick={onSearch}>Search</button>
       {loader && <p>Loading...</p>}
       {error && <p>{error}</p>}

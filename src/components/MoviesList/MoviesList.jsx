@@ -6,7 +6,7 @@ export default function MoviesList({moviesList}) {
     <ListOfMovies>
         {moviesList.map(({id, original_title}) =>
             (<li key={id}>
-                <Link >{original_title}</Link>
+                <Link to={`/movies/${id}`} >{original_title}</Link>
             </li>))}
     </ListOfMovies>
   )

@@ -15,6 +15,7 @@ async function getMovieByKeyword (keyword, page=1) {
 
 async function getMovieDetails (movie_id) {
     const response = await axios.get(`${BASE_URL}movie/${movie_id}?api_key=${KEY}`)
+
     return response
 }
 

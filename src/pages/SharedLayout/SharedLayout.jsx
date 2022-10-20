@@ -5,8 +5,8 @@ export default function SharedLayout() {
     <>
         <header>
           <nav>
-            <NavLink end to="/">Home</NavLink>
-            <NavLink end to="/movies">Movies</NavLink>
+            <NavLink to="/" end>Home</NavLink>
+            <NavLink to="/movies">Movies</NavLink>
           </nav>
         </header>
         <Outlet/>

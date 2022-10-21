@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { API } from "shared"
 import noposter from '../../images/noposter.jpg'
+import { CastList } from "./Cast.styled"
 
 
 const { getMovieCredits } = API
@@ -38,14 +39,14 @@ export default function Cast() {
         <>
             {loader && <p>Loading...</p>}
             {error && <p>{error}</p>}
-            {isCast &&   <ul>
+            {isCast &&   <CastList>
                             {movieCast.map(({character, original_name, profile_path, credit_id}) => <li key={credit_id
 }>
                                 <img src={profile_path ? `https://image.tmdb.org/t/p/w200${profile_path}` : noposter} alt={original_name} />
                                 <p>{original_name}</p>
                                 <p>Character: {character}</p>
                             </li>)}
-                        </ul>}
+                        </CastList>}
         </>
     )
 }

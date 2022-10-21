@@ -1,7 +1,9 @@
 import { Outlet, useParams, Link, useNavigate, useLocation} from "react-router-dom"
 import { useState, useEffect } from "react"
+import { IoArrowBack } from "react-icons/io5";
 import { API } from "shared"
 import noposter from '../../images/noposter.jpg'
+import { GoBackButton, DetailsBox, AdditionalInformationBox } from "./MovieDetails.styled";
 
 const { getMovieDetails } = API
 
@@ -63,30 +65,34 @@ export default function MovieDetails() {
 
     return (
             <> 
-                <button type="button" onClick={goBack}>Go back</button>
+                <GoBackButton type="button" onClick={goBack}><IoArrowBack/>Go back</GoBackButton>
                 {loader && <p>Loading...</p>}
                 {error && <p>{error}</p>}
                 {isDetails && <div>
-                                    <img src={imageURL} alt={original_title} />
-                                    <h2>{original_title} {release_date && `(${getYear()})`}</h2>
-                                    {userScore !== 0 && <p>User Score: {userScore}%</p>}
-                                    <h3>Overview</h3>
-                                    <p>{overview}</p>
-                                    {genres.length > 0 &&   <>
-                                                                <h4>Ganres</h4>
-                                                                <ul>
-                                                                    {genres.map(genre => (
-                                                                        <li key={genre.id}>{genre.name}</li>
-                                                                    ))}
-                                                                </ul>
-                                                            </>}
-                                    <div>
+                                    <DetailsBox>
+                                        <img src={imageURL} alt={original_title} />
+                                        <div>
+                                            <h2>{original_title} {release_date && `(${getYear()})`}</h2>
+                                            {userScore !== 0 && <p>User Score: {userScore}%</p>}
+                                            <h3>Overview</h3>
+                                            <p>{overview}</p>
+                                            {genres.length > 0 &&   <>
+                                                                        <h4>Ganres</h4>
+                                                                        <ul>
+                                                                            {genres.map(genre => (
+                                                                                <li key={genre.id}>{genre.name}</li>
+                                                                            ))}
+                                                                        </ul>
+                                                                    </>}
+                                        </div>
+                                    </DetailsBox>
+                                    <AdditionalInformationBox>
                                         <h5>Additional information</h5>
                                         <ul>
                                             <li><Link state={{from: from}} to={changePagePath('cast')}>Cast</Link></li>
                                             <li><Link state={{from: from}} to={changePagePath('reviews')}>Reviews</Link></li>
                                         </ul>
-                                    </div>
+                                    </AdditionalInformationBox>
                                     <Outlet/>
                                 </div>}
             </>

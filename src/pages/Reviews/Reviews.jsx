@@ -40,7 +40,7 @@ export default function Reviews() {
             {isReviews &&   <ul>
                                 {movieReviews.map(({author, content, id}) => <li key={id}>
                                     <article>
-                                        <p>Author: {author}</p>
+                                        <b>Author: {author}</b>
                                         <p>{content}</p>
                                     </article>
                                 </li>)}

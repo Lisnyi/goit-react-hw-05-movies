@@ -1,6 +1,6 @@
-import { Outlet, useParams, Link } from "react-router-dom"
+import { Outlet, useParams, Link, useNavigate, useLocation} from "react-router-dom"
 import { useState, useEffect } from "react"
-import API from "shared/API/API"
+import { API } from "shared"
 import noposter from '../../images/noposter.jpg'
 
 const { getMovieDetails } = API
@@ -11,11 +11,9 @@ export default function MovieDetails() {
     const [error, setError] = useState(null)
 
     const { movieId } = useParams()
-    const { original_title, release_date, poster_path, vote_average, overview, genres } = moviesDetails
-    const isDetails = Boolean(Object.keys(moviesDetails).length)
-    const userScore = Number((vote_average*10).toFixed())
-    const imageURL = poster_path ? `https://image.tmdb.org/t/p/w300${poster_path}` : noposter
-    const getYear = () => new Date(release_date).getFullYear();
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from || '/'
 
 
     useEffect(()=>{
@@ -38,9 +36,34 @@ export default function MovieDetails() {
         fetchMovieDetails()
     },[movieId])
 
+    const { original_title, release_date, poster_path, vote_average, overview, genres } = moviesDetails
+    const isDetails = Boolean(Object.keys(moviesDetails).length)
+    const userScore = Number((vote_average*10).toFixed())
+    const imageURL = poster_path ? `https://image.tmdb.org/t/p/w300${poster_path}` : noposter
+    const getYear = () => new Date(release_date).getFullYear();
+    
+    function changePagePath (page) {
+        let path = `/movies/${movieId}`
+        if (location.pathname.includes(`${page}`)) {
+            return path
+        }
+        switch (page) {
+            case "cast":
+                path =  `/movies/${movieId}/cast`
+                break
+            case "reviews":
+                path = `/movies/${movieId}/reviews`
+                break
+            default: path = `/movies/${movieId}`
+        }
+        return path
+    }
+    
+    const goBack = () => navigate(from)
+
     return (
             <> 
-                <Link>Go back</Link>
+                <button type="button" onClick={goBack}>Go back</button>
                 {loader && <p>Loading...</p>}
                 {error && <p>{error}</p>}
                 {isDetails && <div>
@@ -60,8 +83,8 @@ export default function MovieDetails() {
                                     <div>
                                         <h5>Additional information</h5>
                                         <ul>
-                                            <Link to={`/movies/${movieId}/cast`}>Cast</Link>
-                                            <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+                                            <li><Link state={{from: from}} to={changePagePath('cast')}>Cast</Link></li>
+                                            <li><Link state={{from: from}} to={changePagePath('reviews')}>Reviews</Link></li>
                                         </ul>
                                     </div>
                                     <Outlet/>

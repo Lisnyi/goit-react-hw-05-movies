@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
-import MoviesList from "components/MoviesList/MoviesList"
-import API from "shared/API/API"
+import { API, MoviesList } from "shared"
+import HomeTitle from "./Home.styled"
 
 const { getTrendingMovies } = API
 
@@ -32,7 +32,7 @@ export default function HomePage() {
 
   return (
     <>
-      <h1>Trending today</h1>
+      <HomeTitle>Trending today</HomeTitle>
       {loader && <p>Loading...</p>}
       {error && <p>{error}</p>}
       {isMovies && <MoviesList moviesList={moviesList} />}

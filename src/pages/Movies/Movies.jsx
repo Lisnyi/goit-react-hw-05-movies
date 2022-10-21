@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import { useSearchParams } from "react-router-dom"
-import MoviesList from "components/MoviesList/MoviesList"
-import API from "shared/API/API"
+import { API, MoviesList } from "shared"
 
 const { getMovieByKeyword } = API
 

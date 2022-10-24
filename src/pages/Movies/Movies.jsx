@@ -43,7 +43,7 @@ export default function Movies() {
 
   useEffect (() => {
     searchQuery && setQuery(searchQuery)
-  }, [] )
+  }, [searchQuery] )
 
 
 

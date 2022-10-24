@@ -38,7 +38,7 @@ export default function Movies() {
       }
     }
 
-    fetchMovieByKeyword(searchQuery)
+    searchQuery && fetchMovieByKeyword(searchQuery)
     searchQuery && setQuery(searchQuery)
   }, [searchQuery])
 

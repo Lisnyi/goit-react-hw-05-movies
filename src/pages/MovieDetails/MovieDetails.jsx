@@ -1,5 +1,5 @@
 import { Outlet, useParams, Link, useNavigate, useLocation} from "react-router-dom"
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { IoArrowBack } from "react-icons/io5";
 import { API } from "shared"
 import noposter from '../../images/noposter.jpg'
@@ -93,7 +93,9 @@ export default function MovieDetails() {
                                             <li><Link state={{from: from}} to={changePagePath('reviews')}>Reviews</Link></li>
                                         </ul>
                                     </AdditionalInformationBox>
-                                    <Outlet/>
+                                    <Suspense fallback={<p>Loading...</p>}>
+                                        <Outlet/>
+                                    </Suspense>
                                 </div>}
             </>
     )

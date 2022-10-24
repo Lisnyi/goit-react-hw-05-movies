@@ -41,6 +41,10 @@ export default function Movies() {
     fetchMovieByKeyword(searchQuery)
   }, [searchQuery])
 
+  useEffect (() => {
+    searchQuery && setQuery(searchQuery)
+  }, [] )
+
 
 
   function handleChange ({target}) {
